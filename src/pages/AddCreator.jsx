@@ -33,50 +33,79 @@ function AddCreator() {
     }
     
     return(
-        <div>
-            <form onSubmit={addCreator}>
-                <label htmlFor="name">Name</label>
-                <input 
-                    type="text" 
-                    id="name" 
-                    name="name" 
+        <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
+            <form onSubmit={addCreator} className="space-y-6">
+                {/* Name */}
+                <div>
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                    Name
+                </label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
                     value={creator.name}
-                    onChange={handleChange} 
-                /><br />
-                <br />
+                    onChange={handleChange}
+                    className="text-gray-900 w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                </div>
 
-                <label htmlFor="url">URL</label><br />
-                <input 
-                    type="text" 
-                    id="url" 
-                    name="url" 
+                {/* URL */}
+                <div>
+                <label htmlFor="url" className="block text-sm font-medium text-gray-700 mb-1">
+                    URL
+                </label>
+                <input
+                    type="text"
+                    id="url"
+                    name="url"
                     value={creator.url}
-                    onChange={handleChange} 
-                /><br />
-                <br />
+                    onChange={handleChange}
+                    className="text-gray-900 w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                </div>
 
-                <label htmlFor="description">Description</label><br />
-                <input 
-                    type="text" 
-                    id="description" 
-                    name="description" 
+                {/* Description */}
+                <div>
+                <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+                    Description
+                </label>
+                <input
+                    type="text"
+                    id="description"
+                    name="description"
                     value={creator.description}
-                    onChange={handleChange} 
-                /><br />
-                <br />
+                    onChange={handleChange}
+                    className="text-gray-900 w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                </div>
 
-                <label htmlFor="imageUrl">Image URL</label><br />
-                <input 
-                    type="text" 
-                    id="imageUrl" 
-                    name="imageUrl" 
-                    value={creator.imageUrl}
-                    onChange={handleChange} 
-                /><br />
-                <br />
-                <input type="submit" value="Submit" />
+                {/* Image URL */}
+                <div>
+                <label htmlFor="imageURL" className="block text-sm font-medium text-gray-700 mb-1">
+                    Image URL
+                </label>
+                <input
+                    type="text"
+                    id="imageURL"
+                    name="imageURL"
+                    value={creator.imageURL}
+                    onChange={handleChange}
+                    className="text-gray-900 w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                </div>
+
+                {/* Submit Button */}
+                <div>
+                <input
+                    type="submit"
+                    value="Submit"
+                    className="text-gray-900 cursor-pointer rounded bg-blue-600 text-white px-6 py-2 hover:bg-blue-700 transition"
+                />
+                </div>
             </form>
         </div>
+
     )
 }
 export default AddCreator

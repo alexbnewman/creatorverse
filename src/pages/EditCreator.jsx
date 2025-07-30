@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { supabase } from '../client';
 
-const EditCreator = ({data}) => {
+const EditCreator = () => {
     const { id } = useParams();
-    const [creator, setCreator] = useState({ name: "", url: "", description: "", imageUrl: "" });
+    const [creator, setCreator] = useState({ name: "", url: "", description: "", imageURL: "" });
 
     useEffect(() => {
         const fetchCreator = async () => {
@@ -31,26 +31,13 @@ const EditCreator = ({data}) => {
                 [name]: value,
             }
         });
-    };
-
-    useEffect(() => {
-        const fetchCreator = async () => {
-            const {data} = await supabase
-                .from('creator')
-                .select()
-                .eq('id', id) // filter by id
-                .single();
-
-            setCreator(data)
-        }
-        fetchCreator()
-    }, [])
+    }
 
     const updateCreator = async (event) => {
         event.preventDefault();
         const { error } = await supabase
             .from('creators')
-            .update({ title: creator.title, author: creator.author, description: creator.description })
+            .update({ name: creator.name, url: creator.url, description: creator.description, imageURL: creator.imageURL })
             .eq('id', id);
         
         if (error) {
@@ -75,28 +62,87 @@ const EditCreator = ({data}) => {
     };
 
     return (
-        <div>
-            <form onSubmit={updateCreator}>
-                <label htmlFor="title">Title</label> <br />
-                <input type="text" id="title" name="title" value={creator.title} onChange={handleChange} /><br /><br />
+        <div className="max-w-md mx-auto p-6 bg-white rounded-lg shadow-md">
+            <form onSubmit={updateCreator} className="space-y-6">
+                {/* Name */}
+                <div>
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                    Name
+                </label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={creator.name}
+                    onChange={handleChange}
+                    className="text-gray-900 w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                </div>
 
-                <label htmlFor="author">Author</label><br />
-                <input type="text" id="author" name="author" value={creator.author} onChange={handleChange} /><br /><br />
+                {/* URL */}
+                <div>
+                <label htmlFor="url" className="block text-sm font-medium text-gray-700 mb-1">
+                    URL
+                </label>
+                <input
+                    type="text"
+                    id="url"
+                    name="url"
+                    value={creator.url}
+                    onChange={handleChange}
+                    className="text-gray-900 w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                </div>
 
-                <label htmlFor="description">Description</label><br />
-                <textarea 
-                    rows="5" 
-                    cols="50" 
-                    id="description" 
-                    name="description" 
-                    value={creator.description} 
-                    onChange={handleChange}>
-                </textarea><br />
-                
-                <input type="submit" value="Submit" />
-                <button type="button" className="deleteButton" onClick={deletecreator}>Delete</button>
+                {/* Description */}
+                <div>
+                <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
+                    Description
+                </label>
+                <textarea
+                    rows="5"
+                    cols="50"
+                    id="description"
+                    name="description"
+                    value={creator.description}
+                    onChange={handleChange}
+                    className="text-gray-900 w-full rounded border border-gray-300 px-3 py-2 resize-y focus:outline-none focus:ring-2 focus:ring-blue-500"
+                ></textarea>
+                </div>
+
+                {/* Image URL */}
+                <div>
+                <label htmlFor="imageURL" className="block text-sm font-medium text-gray-700 mb-1">
+                    Image URL
+                </label>
+                <input
+                    type="text"
+                    id="imageURL"
+                    name="imageURL"
+                    value={creator.imageURL}
+                    onChange={handleChange}
+                    className="text-gray-900 w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                </div>
+
+                {/* Buttons */}
+                <div className="flex gap-4">
+                <input
+                    type="submit"
+                    value="Submit"
+                    className="cursor-pointer rounded bg-blue-600 text-white px-6 py-2 hover:bg-blue-700 transition"
+                />
+                <button
+                    type="button"
+                    onClick={deleteCreator}
+                    className="rounded bg-red-600 text-white px-6 py-2 hover:bg-red-700 transition"
+                >
+                    Delete
+                </button>
+                </div>
             </form>
-        </div>
+            </div>
+
     );
 };
 
